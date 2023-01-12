@@ -20,7 +20,7 @@ describe GildedRose do
       end
 
       context 'sell by date passed' do
-        let(:sell_in) { -1 }
+        let(:sell_in) { 0 }
 
         it 'decrements quality by 2' do
           expect { rose.update_quality }.to change { item.quality }.from(5).to(3)
@@ -32,6 +32,22 @@ describe GildedRose do
 
         it 'doesnt change quality' do
           expect { rose.update_quality }.not_to change { item.quality }
+        end
+      end
+
+      describe 'Conjured item' do
+        let(:name) { 'Conjured foo' }
+
+        it 'decrements quality by 2' do
+          expect { rose.update_quality }.to change { item.quality }.from(5).to(3)
+        end
+
+        context 'sell by date passed' do
+          let(:sell_in) { 0 }
+  
+          it 'decrements quality by 4' do
+            expect { rose.update_quality }.to change { item.quality }.from(5).to(1)
+          end
         end
       end
 
@@ -67,16 +83,16 @@ describe GildedRose do
       describe 'Backstage passes to a TAFKAL80ETC concert' do
         let(:name) { 'Backstage passes to a TAFKAL80ETC concert' }
 
-        context 'less than 10 days to go' do
-          let(:sell_in) { 7 }
+        context '10 days to go' do
+          let(:sell_in) { 11 }
 
           it 'increments quality by 2' do
             expect { rose.update_quality }.to change { item.quality }.from(5).to(7)
           end
         end
 
-        context 'less than 5 days to go' do
-          let(:sell_in) { 4 }
+        context '5 days to go' do
+          let(:sell_in) { 6 }
 
           it 'increments quality by 3' do
             expect { rose.update_quality }.to change { item.quality }.from(5).to(8)
@@ -84,7 +100,7 @@ describe GildedRose do
         end
 
         context 'less than 0 days to go' do
-          let(:sell_in) { -1 }
+          let(:sell_in) { 0 }
 
           it 'sets quality to 0' do
             expect { rose.update_quality }.to change { item.quality }.from(5).to(0)
