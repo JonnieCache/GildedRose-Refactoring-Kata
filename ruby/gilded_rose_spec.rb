@@ -84,7 +84,7 @@ describe GildedRose do
         let(:name) { 'Backstage passes to a TAFKAL80ETC concert' }
 
         context '10 days to go' do
-          let(:sell_in) { 11 }
+          let(:sell_in) { 10 }
 
           it 'increments quality by 2' do
             expect { rose.update_quality }.to change { item.quality }.from(5).to(7)
@@ -92,7 +92,7 @@ describe GildedRose do
         end
 
         context '5 days to go' do
-          let(:sell_in) { 6 }
+          let(:sell_in) { 5 }
 
           it 'increments quality by 3' do
             expect { rose.update_quality }.to change { item.quality }.from(5).to(8)
