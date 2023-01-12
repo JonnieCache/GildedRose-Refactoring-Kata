@@ -8,7 +8,7 @@ class GildedRose
       next if item.name.end_with? 'Sulfuras, Hand of Ragnaros'
       
       item.sell_in -= 1
-      
+
       case item.name
       when /Aged Brie$/ then update_aged_brie(item)
       when /Backstage passes to a TAFKAL80ETC concert$/ then update_backstage(item)
@@ -35,7 +35,7 @@ class GildedRose
     case item.sell_in
     when 0..5 then item.quality += 3
     when 6..10 then item.quality += 2
-    when -Float::INFINITY..0 then item.quality = 0
+    when -Float::INFINITY..-1 then item.quality = 0
     end
   end
 end
