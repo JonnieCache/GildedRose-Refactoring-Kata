@@ -6,12 +6,11 @@ class GildedRose
   def update_quality
     @items.each do |item|
       next if item.name.end_with? 'Sulfuras, Hand of Ragnaros'
-      conjured = item.name.start_with? 'Conjured'
 
       case item.name
       when /Aged Brie$/ then update_aged_brie(item)
       when /Backstage passes to a TAFKAL80ETC concert$/ then update_backstage(item)
-      else update_item(item, conjured)
+      else update_item(item)
       end
 
       item.quality = item.quality.clamp(0..50)
@@ -20,15 +19,13 @@ class GildedRose
 
   private
 
-  def decrement_quality(item, conjured)
-    item.quality -= conjured ? 2 : 1
-  end
 
-  def update_item(item, conjured)
+  def update_item(item)
     item.sell_in -= 1
-
-    decrement_quality(item, conjured)
-    decrement_quality(item, conjured) if item.sell_in < 0
+    
+    decrement = item.name.start_with?('Conjured') ? 2 : 1
+    item.quality -= decrement
+    item.quality -= decrement if item.sell_in < 0
   end
 
   def update_aged_brie(item)
