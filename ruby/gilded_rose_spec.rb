@@ -99,8 +99,8 @@ describe GildedRose do
           end
         end
 
-        context 'less than 0 days to go' do
-          let(:sell_in) { 0 }
+        context '0 days to go' do
+          let(:sell_in) { -1 }
 
           it 'sets quality to 0' do
             expect { rose.update_quality }.to change { item.quality }.from(5).to(0)
