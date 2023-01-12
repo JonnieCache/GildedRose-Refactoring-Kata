@@ -19,7 +19,6 @@ class GildedRose
 
   private
 
-
   def update_item(item)
     item.sell_in -= 1
     
